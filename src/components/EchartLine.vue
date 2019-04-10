@@ -11,10 +11,18 @@ require("echarts/lib/component/tooltip");
 require("echarts/lib/component/title");
 export default {
   mounted() {
+    this.$store.dispatch('getWeather')
     this.drawLine();
   },
+  computed:{
+    weather(){
+      return this.$store.state.weather
+    }
+  },
   methods: {
+    
     drawLine() {
+      var _this = this
       // 基于准备好的dom，初始化echarts实例
       let myChart = echarts.init(document.getElementById("echartLine"));
       // 绘制图表
@@ -38,7 +46,7 @@ export default {
         series: [
           { 
             name: "平均温度",
-            data: [10.2, 20.3, 23.4, 23.0, 16.5, 12.0,14.6],
+            data: _this.weather,
             type: "line",           
             areaStyle: {
               color:'#409EFF'
