@@ -1,18 +1,34 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <button v-for="(item,index) in tabTitle" v-on:click="tabs(item)" :key="index">{{item}}</button>
+
+    <component v-bind:is="currentTabComponent">123</component>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import HomeComponent from '../components/HomeComponent';
+import PostComponent from '../components/PostComponent';
+import ArchiveComponent from '../components/ArchiveComponent';
 export default {
-  name: 'home',
+  name: "home",
   components: {
-    HelloWorld
+    HomeComponent,PostComponent,ArchiveComponent
+  },
+  data() {
+    return {
+      tabTitle:['Home','Post','Archive'],
+      currentTabComponent: "HomeComponent"
+    };
+  },
+  methods: {
+    tabs(value) {
+      console.log(value);
+      
+      this.currentTabComponent = value + "Component";
+    }
   }
-}
+};
 </script>
